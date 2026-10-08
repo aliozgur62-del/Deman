@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Borsa İstanbul Anadolu Lisesi · Ders Paneli</title>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#F3F6F4;--card:#fff;--ink:#1D2B3A;--mute:#5D6D7A;--line:#D9E1DD;--teal:#1F7A6D;--teal-s:#DDEFEA;--amber:#B9770E;--amber-s:#FBEBC8;}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121A1F;--card:#1A252C;--ink:#E8EEF0;--mute:#9DB0B8;--line:#2C3B44;--teal:#4DBBA9;--teal-s:#1E3A36;--amber:#F0B34A;--amber-s:#3A2E14;}}
+:root[data-theme="dark"]{--bg:#121A1F;--card:#1A252C;--ink:#E8EEF0;--mute:#9DB0B8;--line:#2C3B44;--teal:#4DBBA9;--teal-s:#1E3A36;--amber:#F0B34A;--amber-s:#3A2E14;}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.6 "Atkinson Hyperlegible",system-ui,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:16px 16px 48px}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+h1{font-size:1.35rem;margin:0}
+h2{font-size:1.15rem;margin:24px 0 8px}
+.seg{display:inline-flex;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:3px}
+.seg button{border:0;background:none;color:var(--mute);font:inherit;font-size:.95rem;padding:8px 14px;border-radius:9px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--teal);color:#fff;font-weight:700}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+nav{display:flex;gap:8px;margin-bottom:20px;border-bottom:2px solid var(--line)}
+nav button{border:0;background:none;font:inherit;font-weight:700;color:var(--mute);padding:10px 14px;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px}
+nav button[aria-selected=true]{color:var(--teal);border-color:var(--teal)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.prog{display:flex;align-items:center;gap:14px}
+.bar{flex:1;height:12px;background:var(--line);border-radius:8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--teal);transition:width .3s}
+.big{font-size:2rem;font-weight:700;color:var(--teal);line-height:1}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:.9rem;padding:6px 14px;border-radius:20px;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--teal-s);border-color:var(--teal);color:var(--teal);font-weight:700}
+.row{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.row input[type=checkbox]{width:24px;height:24px;margin-top:3px;accent-color:var(--teal);flex:none}
+.row label{flex:1;cursor:pointer}
+.row.done label{color:var(--mute);text-decoration:line-through}
+.tag{font-size:.8rem;padding:2px 9px;border-radius:10px;background:var(--teal-s);color:var(--teal);margin-left:6px;white-space:nowrap}
+.tag.b{background:var(--amber-s);color:var(--amber)}
+.star{border:1px solid var(--line);background:none;border-radius:10px;font:inherit;font-size:.85rem;color:var(--mute);padding:4px 10px;cursor:pointer;flex:none}
+.star[aria-pressed=true]{background:var(--amber-s);color:var(--amber);border-color:var(--amber);font-weight:700}
+.sess{border-left:6px solid var(--amber)}
+.sess b{font-size:1.1rem}
+.btn{background:var(--teal);color:#fff;border:0;font:inherit;font-weight:700;border-radius:12px;padding:12px 20px;cursor:pointer}
+.btn.alt{background:none;color:var(--teal);border:2px solid var(--teal)}
+.sel{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}
+select,input[type=text],textarea{font:inherit;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;max-width:100%}
+textarea{width:100%;min-height:96px}
+.empty{color:var(--mute);padding:8px 0}
+.note{font-size:.9rem;color:var(--mute)}
+.hide{display:none}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div><h1>Borsa İstanbul Anadolu Lisesi</h1><div class="note">Ders paneli · 9, 10 ve 11. sınıf</div></div>
+  <div class="seg" role="group" aria-label="Görünüm">
+    <button id="rS" aria-pressed="true">Öğrenci</button>
+    <button id="rT" aria-pressed="false">Öğretmen</button>
+  </div>
+</header>
+<section class="card" style="margin-bottom:16px;border-top:5px solid var(--teal)"><b>Hoş geldiniz</b><p style="margin:6px 0 0">Konularını takip et, birebir ders gündemini gör ve derse hazırlan. Öğretmenlerimiz konuları buradan seçer.</p></section>
+<nav role="tablist">
+  <button role="tab" id="tP" aria-selected="true">Panel</button>
+  <button role="tab" id="tB" aria-selected="false">Birebir</button>
+</nav>
+<main id="app"></main>
+<footer class="note" style="margin-top:32px;text-align:center">Borsa İstanbul Anadolu Lisesi · Ders Paneli (öğrenci çalışma aracı)</footer>
+</div>
+<script>
+var D={
+"Matematik":{9:["Mantık","Kümeler","Denklemler ve Eşitsizlikler","Üçgenler","Veri"],10:["Sayma ve Olasılık","Fonksiyonlar","Polinomlar","İkinci Dereceden Denklemler"],11:["Trigonometri","Analitik Geometri","Denklem ve Eşitsizlik Sistemleri","Çember ve Daire"]},
+"Fizik":{9:["Fizik Bilimi","Madde ve Özellikleri","Kuvvet ve Hareket","Enerji","Isı ve Sıcaklık"],10:["Elektrik ve Manyetizma","Basınç ve Kaldırma Kuvveti","Dalgalar","Optik"],11:["Vektörler ve Hareket","Newton'un Hareket Yasaları","Elektrik ve Manyetizma","Dönme ve Denge"]},
+"Kimya":{9:["Kimya Bilimi","Atom ve Periyodik Sistem","Kimyasal Türler Arası Etkileşimler","Maddenin Halleri"],10:["Kimyasal Hesaplamalar","Karışımlar","Asitler, Bazlar ve Tuzlar"],11:["Modern Atom Teorisi","Gazlar","Sıvı Çözeltiler","Tepkimelerde Enerji, Hız ve Denge"]},
+"Biyoloji":{9:["Yaşam Bilimi Biyoloji","Hücre","Canlıların Çeşitliliği"],10:["Hücre Bölünmeleri","Kalıtım","Ekosistem Ekolojisi"],11:["Sindirim ve Dolaşım Sistemi","Solunum ve Boşaltım","Sinir ve Endokrin Sistem","Komünite ve Popülasyon Ekolojisi"]}
+};
+var S={role:"s",view:"p",gf:"0",tg:"9",ts:"Matematik",as:{}};
+var NOTE="";
+try{var x=JSON.parse(localStorage.getItem("dp1")||"null");if(x){S.as=x.as||{};NOTE=x.note||""}}catch(e){}
+if(!Object.keys(S.as).length){S.as={"9|Matematik|Mantık":{b:1,d:0},"9|Matematik|Kümeler":{b:0,d:1},"9|Fizik|Kuvvet ve Hareket":{b:1,d:0},"9|Kimya|Atom ve Periyodik Sistem":{b:0,d:0}}}
+function save(){try{localStorage.setItem("dp1",JSON.stringify({as:S.as,note:NOTE}))}catch(e){}}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function parts(k){return k.split("|")}
+function topicRow(k,mode){
+  var p=parts(k),a=S.as[k],id="c"+btoa(unescape(encodeURIComponent(k))).replace(/\W/g,"");
+  return '<div class="row'+(a.d?' done':'')+'"><input type="checkbox" id="'+id+'" data-d="'+esc(k)+'"'+(a.d?' checked':'')+'><label for="'+id+'">'+esc(p[2])+'<span class="tag">'+esc(p[1])+' · '+p[0]+'. sınıf</span>'+(a.b&&mode!="b"?'<span class="tag b">Birebirde</span>':'')+'</label></div>';
+}
+function panel(){
+  var ks=Object.keys(S.as).filter(function(k){return S.gf=="0"||parts(k)[0]==S.gf});
+  var all=Object.keys(S.as),dn=all.filter(function(k){return S.as[k].d}).length,pc=all.length?Math.round(dn/all.length*100):0;
+  var h='<div class="card prog"><div class="big">%'+pc+'</div><div style="flex:1"><div>'+dn+' / '+all.length+' konu tamamlandı</div><div class="bar" role="progressbar" aria-valuenow="'+pc+'" aria-valuemin="0" aria-valuemax="100"><i style="width:'+pc+'%"></i></div></div></div>';
+  h+='<div class="chips" role="group" aria-label="Sınıf filtresi">'+[["0","Tümü"],["9","9. sınıf"],["10","10. sınıf"],["11","11. sınıf"]].map(function(c){return '<button class="chip" data-gf="'+c[0]+'" aria-pressed="'+(S.gf==c[0])+'">'+c[1]+'</button>'}).join("")+'</div>';
+  h+='<h2>Öğretmenimin seçtiği konular</h2><div class="card">';
+  h+=ks.length?ks.map(function(k){return topicRow(k,"p")}).join(""):'<div class="empty">Bu sınıf için henüz konu seçilmedi. Öğretmenin konu ekleyince burada görünür.</div>';
+  return h+'</div>';
+}
+function birebir(){
+  var ks=Object.keys(S.as).filter(function(k){return S.as[k].b});
+  var h='<div class="card sess"><b>Sıradaki birebir ders</b><div>Cuma, 17:00 · 40 dakika</div><div class="note">Öğretmen: Elif Yıldız (örnek)</div><p style="margin:12px 0 0"><button class="btn" id="join">Derse katıl</button></p></div>';
+  h+='<h2>Bu derste çalışılacak konular</h2><div class="card">';
+  h+=ks.length?ks.map(function(k){return topicRow(k,"b")}).join(""):'<div class="empty">Öğretmenin bu ders için konu işaretlemedi. Soruların varsa aşağıya yazabilirsin.</div>';
+  h+='</div><h2>Derse hazırlık notların</h2><textarea id="note" aria-label="Notlar" placeholder="Anlamadığın soruları ve konuları buraya yaz.">'+esc(NOTE)+'</textarea><p class="note" id="saved"></p>';
+  return h;
+}
+function teacher(){
+  var subs=Object.keys(D),list=D[S.ts][S.tg]||[];
+  var h='<div class="card"><b>Konu seçimi</b><p class="note" style="margin:4px 0">İşaretlediğin konular öğrencinin panelinde görünür. “Birebire al” dersin gündemine ekler.</p>';
+  h+='<div class="chips" role="group" aria-label="Sınıf">'+["9","10","11"].map(function(g){return '<button class="chip" data-tg="'+g+'" aria-pressed="'+(S.tg==g)+'">'+g+'. sınıf</button>'}).join("")+'</div>';
+  h+='<div class="sel"><label>Ders <select id="ts">'+subs.map(function(s){return '<option'+(s==S.ts?' selected':'')+'>'+s+'</option>'}).join("")+'</select></label></div></div>';
+  h+='<h2>'+S.ts+' · '+S.tg+'. sınıf</h2><div class="card">';
+  h+=list.map(function(t){var k=S.tg+"|"+S.ts+"|"+t,a=S.as[k],id="t"+btoa(unescape(encodeURIComponent(k))).replace(/\W/g,"");
+    return '<div class="row"><input type="checkbox" id="'+id+'" data-a="'+esc(k)+'"'+(a?' checked':'')+'><label for="'+id+'">'+esc(t)+'</label>'+(a?'<button class="star" data-s="'+esc(k)+'" aria-pressed="'+(!!a.b)+'">Birebire al</button>':'')+'</div>'}).join("");
+  h+='</div><h2>Kendi konunu ekle</h2><div class="sel"><input type="text" id="ct" placeholder="Konu adı" aria-label="Konu adı"><button class="btn alt" id="addc">Ekle</button></div>';
+  return h;
+}
+function render(){
+  document.getElementById("rS").setAttribute("aria-pressed",S.role=="s");
+  document.getElementById("rT").setAttribute("aria-pressed",S.role=="t");
+  document.getElementById("tP").setAttribute("aria-selected",S.view=="p");
+  document.getElementById("tB").setAttribute("aria-selected",S.view=="b");
+  document.getElementById("tP").textContent=S.role=="t"?"Konu seçimi":"Panel";
+  var a=document.getElementById("app");
+  a.innerHTML=S.role=="t"&&S.view=="p"?teacher():(S.view=="p"?panel():birebir());
+}
+document.addEventListener("click",function(e){
+  var t=e.target,r=false;
+  if(t.id=="rS"){S.role="s";r=true}
+  else if(t.id=="rT"){S.role="t";r=true}
+  else if(t.id=="tP"){S.view="p";r=true}
+  else if(t.id=="tB"){S.view="b";r=true}
+  else if(t.dataset.gf!==undefined){S.gf=t.dataset.gf;r=true}
+  else if(t.dataset.tg){S.tg=t.dataset.tg;r=true}
+  else if(t.dataset.s){var o=S.as[t.dataset.s];o.b=o.b?0:1;save();r=true}
+  else if(t.id=="join"){t.textContent="Ders başlangıç saatinde açılır";t.disabled=true}
+  else if(t.id=="addc"){var v=document.getElementById("ct").value.trim();if(v){S.as[S.tg+"|"+S.ts+"|"+v]={b:0,d:0};save();r=true}}
+  if(r)render();
+});
+document.addEventListener("change",function(e){
+  var t=e.target;
+  if(t.id=="ts"){S.ts=t.value;render()}
+  else if(t.dataset.a){var k=t.dataset.a;if(t.checked)S.as[k]={b:0,d:0};else delete S.as[k];save();render()}
+  else if(t.dataset.d){S.as[t.dataset.d].d=t.checked?1:0;save();render()}
+});
+document.addEventListener("input",function(e){
+  if(e.target.id=="note"){NOTE=e.target.value;save();document.getElementById("saved").textContent="Kaydedildi"}
+});
+render();
+</script>
+</body>
+</html>
